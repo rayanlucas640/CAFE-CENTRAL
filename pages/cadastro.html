@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Café Central - Crie sua conta e aproveite uma experiência premium em cafés especiais.">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
+
+    <title>Café Central - Cadastro</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="topo">
+
+        <div class="logo">
+            <a href="../index.html">Café<span>Central</span></a>
+        </div>
+
+        <nav class="menu">
+            <a href="../index.html">Início</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="servicos.html">Serviços</a>
+            <a href="login.html">Entrar</a>
+        </nav>
+
+    </header>
+
+
+    <!-- FORMULÁRIO -->
+    <main class="container pagina-auth">
+
+        <section class="bloco-auth">
+
+            <h1>Criar conta</h1>
+
+            <p class="texto-auth">
+                Cadastre-se para viver a experiência Café Central e acessar nosso cardápio exclusivo.
+            </p>
+
+            <form class="form-auth" id="formCadastro">
+
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Crie uma senha segura" required>
+
+                <label for="confirmasenha">Confirmar senha</label>
+                <input type="password" id="confirmasenha" placeholder="Repita sua senha" required>
+
+                <button type="submit" class="btn-primario">Criar conta</button>
+
+                <p id="mensagemCadastro" class="mensagem-auth"></p>
+
+            </form>
+
+            <p class="link-auth">
+                Já tem uma conta? <a href="login.html">Fazer login</a>
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="rodape">
+        <p>© 2026 Café Central. Todos os direitos reservados</p>
+        <p><a href="contato.html">Entre em contato</a></p>
+    </footer>
+
+
+    <script src="../js/auth.js"></script>
+
+</body>
+</html>
