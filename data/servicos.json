@@ -3,35 +3,35 @@
       "titulo": "Bolo no Pote",
       "img": "../img/bolo.jpg",
       "url": "../pages/bolo.html",
-      "descricao": "Bolo caseiro, feito com muito amor",
-      "preco": 8.50
+      "descricao": "Bolos caseiros, feitos com muito amor🍰",
+      "preco": 17.99
     },
     {
       "titulo": "Cappuccino Cremoso",
-      "img": "../img/cafeg.jpg",
-      "url": "../pages/cafeg.html",
-      "descricao": "Combinação perfeita de café, leite vaporizado e espuma cremosa.",
-      "preco": 12.00
+      "img": "../img/capp.jpg",
+      "url": "../pages/capp.html",
+      "descricao": "Combinação perfeita de café, leite vaporizado e espuma cremosa.☕",
+      "preco": 22.99
     },
     {
       "titulo": "Café Preto",
-      "img": "../img/cafep.jpg",
-      "url": "../pages/cafep.html",
-      "descricao": "Um café preto comum.",
-      "preco": 7.00
+      "img": "../img/cafe.jpg",
+      "url": "../pages/cafe.html",
+      "descricao": "Um café preto comum.☕",
+      "preco": 7.99
     },
     {
       "titulo": "Cold Brew Gelado",
-      "img": "../img/coldbrew.jpg",
-      "url": "../pages/coldbrew.html",
-      "descricao": "Café extraído a frio por horas, suave e refrescante.",
-      "preco": 13.50
+      "img": "../img/cafeg.jpg",
+      "url": "../pages/cafeg.html",
+      "descricao": "Café extraído a frio por horas, suave e refrescante.☕",
+      "preco": 13.99
     },
     {
       "titulo": "Latte Macchiato",
-      "img": "../img/latte.jpg",
-      "url": "../pages/latte.html",
-      "descricao": "Leite vaporizado com um toque suave de espresso.",
-      "preco": 11.90
+      "img": "../img/cafem.jpg",
+      "url": "../pages/cafem.html",
+      "descricao": "Leite vaporizado com um toque suave de espresso.☕",
+      "preco": 11.99
     }
   ]
