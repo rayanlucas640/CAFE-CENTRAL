@@ -5,6 +5,7 @@
 /* =========================
    1) IMPORTAÇÕES
 ========================= */
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
@@ -20,8 +21,8 @@ const app = express();
 ========================= */
 
 const listOrigins = [
-    "http://localhost:5501",
-    "http://127.0.0.1:5501",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
     "http://localhost:5502",
     "http://127.0.0.1:5502",
     "https://rayanlucas640.github.io."
@@ -108,7 +109,7 @@ app.post("/cadastro", async (req, res) => {
             mensagem: "☕ Cadastro realizado com sucesso no Café Central!"
         });
 
-    } catch (error) {
+    } catch(error) {
         console.error(error);
         res.status(500).json({ erro: "Erro ao cadastrar usuário" });
     }
