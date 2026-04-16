@@ -33,5 +33,12 @@
       "url": "../pages/cafem.html",
       "descricao": "Leite vaporizado com um toque suave de espresso.☕",
       "preco": 11.99
+    },
+    {
+      "titulo": "Misto Gourmet",
+      "img": "../img/misto.jpg",
+      "url": "../pages/misto.html",
+      "descricao": "Pão na chapa com queijo derretido e presunto, simples e delicioso.🥪",
+      "preco": 14.99
     }
   ]

@@ -242,3 +242,12 @@ body {
       flex-direction: column;
     }
   }
+
+  section p{
+    text-align: center;
+  } 
+
+  #BuscarServicos {
+    display: block;
+    margin: 0 auto;
+  }
