@@ -3,7 +3,7 @@ const formLogin = document.getElementById("formLogin");
 
 // URL da API (local)
 const API_URL = "http://localhost:3000";
-// depois você pode trocar para Render:
+// depois pode trocar para Render:
 // const API_URL = "https://seu-backend.onrender.com";
 
 
