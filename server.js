@@ -25,7 +25,7 @@ const listOrigins = [
     "http://127.0.0.1:5500",
     "http://localhost:5502",
     "http://127.0.0.1:5502",
-    "https://rayanlucas640.github.io."
+    "https://rayanlucas640.github.io"
 ];
 
 app.use(cors({
@@ -163,7 +163,7 @@ app.post("/login", async (req, res) => {
 
 /* ===== VER SESSÃO ===== */
 
-app.get("/me", (req, res) => {
+/*app.get("/me", (req, res) => {
 
     if (!req.session.usuario) {
         return res.status(401).json({ logado: false });
@@ -174,8 +174,17 @@ app.get("/me", (req, res) => {
         usuario: req.session.usuario
     });
 });
-
-
+*/
+app.get("/me", (req, res) => {
+    res.json({
+        logado: true,
+        usuario: {
+            id: 1,
+            nome: "Dev",
+            email: "dev@teste.com"
+        }
+    });
+});
 /* ===== LOGOUT ===== */
 
 app.post("/logout", (req, res) => {
