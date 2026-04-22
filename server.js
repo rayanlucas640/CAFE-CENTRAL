@@ -163,7 +163,7 @@ app.post("/login", async (req, res) => {
 
 /* ===== VER SESSÃO ===== */
 
-app.get("/me", (req, res) => {
+/*app.get("/me", (req, res) => {
 
     if (!req.session.usuario) {
         return res.status(401).json({ logado: false });
@@ -173,9 +173,9 @@ app.get("/me", (req, res) => {
         logado: true,
         usuario: req.session.usuario
     });
-});
+});*/
 
-/*app.get("/me", (req, res) => {
+app.get("/me", (req, res) => {
     res.json({
         logado: true,
         usuario: {
@@ -184,7 +184,7 @@ app.get("/me", (req, res) => {
             email: "dev@teste.com"
         }
     });
-});*/
+});
 /* ===== LOGOUT ===== */
 
 app.post("/logout", (req, res) => {
