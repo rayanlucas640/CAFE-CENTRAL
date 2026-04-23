@@ -38,11 +38,12 @@ if (formCadastro) {
 
         try {
 
-            const resposta = await fetch(`${API_URL}/cadastro`, {
+            fetch(`${API_URL}/cadastro`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
+                credentials: "include",
                 body: JSON.stringify({ nome, email, senha })
             });
 
