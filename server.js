@@ -88,9 +88,7 @@ app.post("/mensagem", async (req, res) => {
             [nome, email, mensagem]
         );
 
-        return res.status(201).json({
-            mensagem: "Mensagem enviada com sucesso!"
-        });
+        return res.status(201).json("Mensagem enviada com sucesso!");
 
     } catch (error) {
         console.error(error);
