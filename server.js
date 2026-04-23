@@ -2,9 +2,6 @@
    ☕ CAFÉ CENTRAL - SERVIDOR BACKEND (NODE + EXPRESS)
 =========================================================== */
 
-/* =========================
-   1) IMPORTAÇÕES
-========================= */
 require("dotenv").config();
 
 const express = require("express");
@@ -15,6 +12,9 @@ const pool = require("./db.js");
 
 const app = express();
 
+/* =========================
+   CORS
+========================= */
 
 const listOrigins = [
     "http://localhost:5500",
@@ -27,15 +27,14 @@ const listOrigins = [
 app.use(cors({
     origin: listOrigins,
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());
 
-
 /* =========================
-   3) SESSÃO DO USUÁRIO
+   SESSÃO
 ========================= */
 
 const sessionConfig = {
@@ -45,7 +44,7 @@ const sessionConfig = {
     name: "cafecentral.sid",
     cookie: {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 // 1 hora
+        maxAge: 1000 * 60 * 60
     }
 };
 
@@ -60,35 +59,30 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(session(sessionConfig));
 
-
 /* ===========================================================
-   4) ROTAS
+   ROTAS
 =========================================================== */
-
 
 /* ===== CONTATO ===== */
 
-app.post("/mensagem", (req,res) => {
-    try{
-     //7. req.body contém os dados enviados pelo formulário
-        //(nome,email, mensagem)
-    const nome = req.body.nome;
-    const email = req.body.email;
-    const mensagem = req.body.mensagem;
+app.post("/mensagem", async (req, res) => {
+    try {
+        const { nome, email, mensagem } = req.body;
 
-    // 8. Valida se as variaveis estão preenchidas
-    if(!nome || !email || !mensagem){
-        return res.status(400).json({mensagem : "Preencha todos os campos"});
-    }
-    //9. Faz o comando SQL de inserção
-    pool.execute("INSERT INTO tb_mensagem(nome,email,mensagem) VALUES(?,?,?)",[nome, email, mensagem]);
-    //10. O servidor envia uma mensagem de volta no formato json
-    res.status(201).json("Mensagem enviada com sucesso!")
+        if (!nome || !email || !mensagem) {
+            return res.status(400).json({ erro: "Preencha todos os campos" });
+        }
 
-    //11. Envia uma mensagem de volta para o navegador
-    res.send("Mensagem recebida com sucesso!");
-    } catch(error){
-        console.erro(error);
+        await pool.execute(
+            "INSERT INTO tb_mensagem(nome,email,mensagem) VALUES(?,?,?)",
+            [nome, email, mensagem]
+        );
+
+        return res.status(201).json({ mensagem: "Mensagem enviada com sucesso!" });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro ao enviar mensagem" });
     }
 });
 
@@ -96,7 +90,6 @@ app.post("/mensagem", (req,res) => {
 
 app.post("/cadastro", async (req, res) => {
     try {
-
         const { nome, email, senha } = req.body;
 
         if (!nome || !email || !senha) {
@@ -108,9 +101,8 @@ app.post("/cadastro", async (req, res) => {
             [email]
         );
 
-        if (resposta.status === 409) {
-            mensagem.textContent = "E-mail já cadastrado";
-            return;
+        if (rows.length > 0) {
+            return res.status(409).json({ erro: "E-mail já cadastrado" });
         }
 
         const senhaHash = await bcrypt.hash(senha, 10);
@@ -120,22 +112,20 @@ app.post("/cadastro", async (req, res) => {
             [nome, email, senhaHash]
         );
 
-        res.status(201).json({
+        return res.status(201).json({
             mensagem: "☕ Cadastro realizado com sucesso no Café Central!"
         });
 
-    } catch(error) {
+    } catch (error) {
         console.error(error);
-        res.status(500).json({ erro: "Erro ao cadastrar usuário" });
+        return res.status(500).json({ erro: "Erro ao cadastrar usuário" });
     }
 });
-
 
 /* ===== LOGIN ===== */
 
 app.post("/login", async (req, res) => {
     try {
-
         const { email, senha } = req.body;
 
         if (!email || !senha) {
@@ -165,33 +155,20 @@ app.post("/login", async (req, res) => {
             email: usuario.email
         };
 
-        res.json({
+        return res.json({
             mensagem: "☕ Login realizado com sucesso!"
         });
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ erro: "Erro ao fazer login" });
+        return res.status(500).json({ erro: "Erro ao fazer login" });
     }
 });
 
-
 /* ===== VER SESSÃO ===== */
 
-/*app.get("/me", (req, res) => {
-
-    if (!req.session.usuario) {
-        return res.status(401).json({ logado: false });
-    }
-
-    res.json({
-        logado: true,
-        usuario: req.session.usuario
-    });
-});*/
-
 app.get("/me", (req, res) => {
-    res.json({
+    return res.json({
         logado: true,
         usuario: {
             id: 1,
@@ -200,19 +177,18 @@ app.get("/me", (req, res) => {
         }
     });
 });
+
 /* ===== LOGOUT ===== */
 
 app.post("/logout", (req, res) => {
-
     req.session.destroy(() => {
         res.clearCookie("cafecentral.sid");
-        res.json({ mensagem: "Logout realizado com sucesso ☕" });
+        return res.json({ mensagem: "Logout realizado com sucesso ☕" });
     });
 });
 
-
 /* =========================
-   5) INICIAR SERVIDOR
+   START SERVER
 ========================= */
 
 app.listen(3000, () => {
