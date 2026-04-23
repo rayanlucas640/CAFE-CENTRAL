@@ -13,7 +13,7 @@ const pool = require("./db.js");
 const app = express();
 
 /* =========================
-   CORS
+   CORS (CORRIGIDO)
 ========================= */
 
 const listOrigins = [
@@ -25,11 +25,23 @@ const listOrigins = [
 ];
 
 app.use(cors({
-    origin: listOrigins,
+    origin: function (origin, callback) {
+        // permite requests sem origin (ex: Postman)
+        if (!origin) return callback(null, true);
+
+        if (listOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error("Bloqueado por CORS"));
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// 🔥 IMPORTANTE: preflight
+app.options("*", cors());
 
 app.use(express.json());
 
@@ -59,11 +71,9 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(session(sessionConfig));
 
-/* ===========================================================
-   ROTAS
-=========================================================== */
-
-/* ===== CONTATO ===== */
+/* =========================
+   CONTATO
+========================= */
 
 app.post("/mensagem", async (req, res) => {
     try {
@@ -78,7 +88,9 @@ app.post("/mensagem", async (req, res) => {
             [nome, email, mensagem]
         );
 
-        return res.status(201).json({ mensagem: "Mensagem enviada com sucesso!" });
+        return res.status(201).json({
+            mensagem: "Mensagem enviada com sucesso!"
+        });
 
     } catch (error) {
         console.error(error);
@@ -86,10 +98,13 @@ app.post("/mensagem", async (req, res) => {
     }
 });
 
-/* ===== CADASTRO ===== */
+/* =========================
+   CADASTRO (CORRIGIDO)
+========================= */
 
 app.post("/cadastro", async (req, res) => {
     try {
+
         const { nome, email, senha } = req.body;
 
         if (!nome || !email || !senha) {
@@ -113,7 +128,7 @@ app.post("/cadastro", async (req, res) => {
         );
 
         return res.status(201).json({
-            mensagem: "☕ Cadastro realizado com sucesso no Café Central!"
+            mensagem: "☕ Cadastro realizado com sucesso!"
         });
 
     } catch (error) {
@@ -122,10 +137,13 @@ app.post("/cadastro", async (req, res) => {
     }
 });
 
-/* ===== LOGIN ===== */
+/* =========================
+   LOGIN
+========================= */
 
 app.post("/login", async (req, res) => {
     try {
+
         const { email, senha } = req.body;
 
         if (!email || !senha) {
@@ -165,30 +183,8 @@ app.post("/login", async (req, res) => {
     }
 });
 
-/* ===== VER SESSÃO ===== */
-
-app.get("/me", (req, res) => {
-    return res.json({
-        logado: true,
-        usuario: {
-            id: 1,
-            nome: "Dev",
-            email: "dev@teste.com"
-        }
-    });
-});
-
-/* ===== LOGOUT ===== */
-
-app.post("/logout", (req, res) => {
-    req.session.destroy(() => {
-        res.clearCookie("cafecentral.sid");
-        return res.json({ mensagem: "Logout realizado com sucesso ☕" });
-    });
-});
-
 /* =========================
-   START SERVER
+   START
 ========================= */
 
 app.listen(3000, () => {
