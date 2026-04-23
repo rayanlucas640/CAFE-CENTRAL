@@ -1,69 +1,42 @@
-/*===============================================================
-    1) CAPTURAR O FORMULÁRIO
-===============================================================*/
-
-// Formulário de contato
 const formContato = document.getElementById("formContato");
 
+if (formContato) {
 
-/*===============================================================
-    2) OUVIR ENVIO DO FORMULÁRIO
-===============================================================*/
+    formContato.addEventListener("submit", async function (event) {
 
-formContato.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-    // Impede recarregar a página
-    event.preventDefault();
+        const nome = document.getElementById("nome").value;
+        const email = document.getElementById("email").value;
+        const mensagem = document.getElementById("mensagem").value;
 
+        const novaMensagem = {
+            nome,
+            email,
+            mensagem
+        };
 
-    /*===========================================================
-        3) PEGAR OS DADOS DO USUÁRIO
-    ===========================================================*/
+        try {
 
-    const nome = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
-    const mensagem = document.getElementById("mensagem").value;
+            const resposta = await fetch(`${API_URL}/mensagem`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(novaMensagem)
+            });
 
+            const dados = await resposta.text();
 
-    // Organiza os dados
-    const novaMensagem = {
-        nome,
-        email,
-        mensagem
-    };
+            alert("☕ Café Central: " + dados);
 
+            formContato.reset();
 
-    /*===========================================================
-        4) ENVIAR PARA O SERVIDOR
-    ===========================================================*/
+        } catch (erro) {
+            alert("❌ Algo deu errado ao enviar sua mensagem.");
+            console.error(erro);
+        }
 
-    try {
+    });
 
-        const resposta = await fetch(`${API_URL}/mensagem`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(novaMensagem)
-        });
-
-
-        /*=======================================================
-            5) TRATAR RESPOSTA
-        =======================================================*/
-
-        const dados = await resposta.text();
-
-        alert("☕ Café Central: " + dados);
-
-        // limpa formulário depois do envio
-        formContato.reset();
-
-
-    } catch (erro) {
-
-        alert("❌ Algo deu errado ao enviar sua mensagem.");
-        console.error(erro);
-    }
-
-});
+}

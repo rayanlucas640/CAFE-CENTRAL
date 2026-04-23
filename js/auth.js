@@ -38,15 +38,14 @@ if (formCadastro) {
 
         try {
 
-            fetch(`${API_URL}/cadastro`, {
+            const resposta = await fetch(`${API_URL}/cadastro`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                credentials: "include",
                 body: JSON.stringify({ nome, email, senha })
             });
-
+            
             const dados = await resposta.json();
 
             if (!resposta.ok) {
@@ -93,7 +92,7 @@ if (formLogin) {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                credentials: "include", // mantém sessão ativa
+                credentials: "include",
                 body: JSON.stringify({ email, senha })
             });
 

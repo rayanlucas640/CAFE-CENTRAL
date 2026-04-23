@@ -16,13 +16,6 @@ const pool = require("./db.js");
 const app = express();
 
 
-/* =========================
-   2) ORIGENS PERMITIDAS
-========================= */
-
-import express from "express";
-import cors from "cors";
-
 const listOrigins = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
@@ -30,8 +23,6 @@ const listOrigins = [
     "http://127.0.0.1:5502",
     "https://rayanlucas640.github.io"
 ];
-
-app.options("*", cors());
 
 app.use(cors({
     origin: listOrigins,
@@ -117,8 +108,9 @@ app.post("/cadastro", async (req, res) => {
             [email]
         );
 
-        if (rows.length > 0) {
-            return res.status(409).json({ erro: "E-mail já cadastrado" });
+        if (resposta.status === 409) {
+            mensagem.textContent = "E-mail já cadastrado";
+            return;
         }
 
         const senhaHash = await bcrypt.hash(senha, 10);
