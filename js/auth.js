@@ -2,7 +2,7 @@ const formCadastro = document.getElementById("formCadastro");
 const formLogin = document.getElementById("formLogin");
 
 // URL da API (local)
-const API_URL = "http://localhost:3000";
+const API_URL = "https://cafe-central-6q7e.onrender.com";
 // depois pode trocar para Render:
 // const API_URL = "https://seu-backend.onrender.com";
 

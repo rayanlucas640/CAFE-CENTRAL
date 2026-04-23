@@ -39,7 +39,7 @@ formContato.addEventListener("submit", async function (event) {
 
     try {
 
-        const resposta = await fetch("http://localhost:3000/mensagem", {
+        const resposta = await fetch("https://cafe-central-6q7e.onrender.com/mensagem", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
