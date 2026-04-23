@@ -1,23 +1,19 @@
+const API_URL = "https://cafe-central-6q7e.onrender.com";
+
 const formContato = document.getElementById("formContato");
 
 if (formContato) {
 
     formContato.addEventListener("submit", async function (event) {
-
         event.preventDefault();
 
         const nome = document.getElementById("nome").value;
         const email = document.getElementById("email").value;
         const mensagem = document.getElementById("mensagem").value;
 
-        const novaMensagem = {
-            nome,
-            email,
-            mensagem
-        };
+        const novaMensagem = { nome, email, mensagem };
 
         try {
-
             const resposta = await fetch(`${API_URL}/mensagem`, {
                 method: "POST",
                 headers: {
@@ -36,7 +32,6 @@ if (formContato) {
             alert("❌ Algo deu errado ao enviar sua mensagem.");
             console.error(erro);
         }
-
     });
 
 }
