@@ -166,8 +166,18 @@ body {
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     flex: 1 1 250px;
     transition: 0.3s;
+    object-fit: cover;
+    
   }
   
+  .card-index {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    flex: 1 1 250px;
+    transition: 0.3s;
+  }
   .card:hover {
     transform: translateY(-5px);
   }

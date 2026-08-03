@@ -1,44 +1,86 @@
 [
-    {
-      "titulo": "Bolo no Pote",
-      "img": "../img/bolo.jpg",
-      "url": "../pages/bolo.html",
-      "descricao": "Bolos caseiros, feitos com muito amor🍰",
-      "preco": 17.99
-    },
-    {
-      "titulo": "Cappuccino Cremoso",
-      "img": "../img/capp.jpg",
-      "url": "../pages/capp.html",
-      "descricao": "Combinação perfeita de café, leite vaporizado e espuma cremosa.☕",
-      "preco": 22.99
-    },
-    {
-      "titulo": "Café Preto",
-      "img": "../img/cafe.jpg",
-      "url": "../pages/cafe.html",
-      "descricao": "Um café preto comum.☕",
-      "preco": 7.99
-    },
-    {
-      "titulo": "Cold Brew Gelado",
-      "img": "../img/cafeg.jpg",
-      "url": "../pages/cafeg.html",
-      "descricao": "Café extraído a frio por horas, suave e refrescante.☕",
-      "preco": 13.99
-    },
-    {
-      "titulo": "Latte Macchiato",
-      "img": "../img/cafem.jpg",
-      "url": "../pages/cafem.html",
-      "descricao": "Leite vaporizado com um toque suave de espresso.☕",
-      "preco": 11.99
-    },
-    {
-      "titulo": "Misto Gourmet",
-      "img": "../img/misto.jpg",
-      "url": "../pages/misto.html",
-      "descricao": "Pão na chapa com queijo derretido e presunto, simples e delicioso.🥪",
-      "preco": 14.99
-    }
-  ]
+  {
+    "id": 1,
+    "titulo": "Bolo no Pote",
+    "img": "../img/bolo.jpg",
+    "descricao": "Bolos caseiros, feitos com muito amor. 🍰",
+    "preco": 17.99
+  },
+  {
+    "id": 2,
+    "titulo": "Cappuccino Cremoso",
+    "img": "../img/capp.jpg",
+    "descricao": "Combinação perfeita de café, leite vaporizado e espuma cremosa. ☕",
+    "preco": 22.99
+  },
+  {
+    "id": 3,
+    "titulo": "Café Preto",
+    "img": "../img/cafe.jpg",
+    "descricao": "Um café preto tradicional, forte e aromático. ☕",
+    "preco": 7.99
+  },
+  {
+    "id": 4,
+    "titulo": "Cold Brew Gelado",
+    "img": "../img/cafeg.jpg",
+    "descricao": "Café extraído a frio por horas, suave e refrescante. ❄️",
+    "preco": 13.99
+  },
+  {
+    "id": 5,
+    "titulo": "Latte Macchiato",
+    "img": "../img/cafem.jpg",
+    "descricao": "Leite vaporizado com um toque suave de espresso. ☕",
+    "preco": 11.99
+  },
+  {
+    "id": 6,
+    "titulo": "Misto Gourmet",
+    "img": "../img/misto.jpg",
+    "descricao": "Pão na chapa com queijo derretido e presunto. 🥪",
+    "preco": 14.99
+  },
+  {
+    "id": 7,
+    "titulo": "Croissant de Queijo",
+    "img": "../img/croissant.jpg",
+    "descricao": "Croissant amanteigado recheado com queijo. 🥐",
+    "preco": 15.99
+  },
+  {
+    "id": 8,
+    "titulo": "Pão de Queijo",
+    "img": "../img/paodequeijo.jpg",
+    "descricao": "Pães de queijo quentinhos e crocantes. 🧀",
+    "preco": 12.99
+  },
+  {
+    "id": 9,
+    "titulo": "Chocolate Quente",
+    "img": "../img/chocolate.jpg",
+    "descricao": "Chocolate quente cremoso e delicioso. 🍫",
+    "preco": 18.99
+  },
+  {
+    "id": 10,
+    "titulo": "Mocha",
+    "img": "../img/mocha.jpg",
+    "descricao": "Café espresso combinado com chocolate e leite. ☕",
+    "preco": 20.99
+  },
+  {
+    "id": 11,
+    "titulo": "Cheesecake de Morango",
+    "img": "../img/cheesecake.jpg",
+    "descricao": "Cheesecake artesanal com cobertura de morango. 🍓",
+    "preco": 19.99
+  },
+  {
+    "id": 12,
+    "titulo": "Cookie de Chocolate",
+    "img": "../img/cookie.jpg",
+    "descricao": "Cookie artesanal com gotas de chocolate. 🍪",
+    "preco": 8.99
+  }
+]
