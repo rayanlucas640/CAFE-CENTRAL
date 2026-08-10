@@ -1,7 +1,5 @@
 Changelog — Café Central Web
 
-Todas as alterações importantes realizadas no projeto serão registradas neste arquivo.
-
 [1.0.0] — 10/08/2026
 
 Correções
