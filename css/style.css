@@ -263,4 +263,291 @@ body {
     margin: 0 auto;
   }
 
+  /* ============================================================
+   ☕ CAFÉ CENTRAL - PÁGINA SOBRE
+   ESTILO RESPONSIVO
+============================================================ */
+
+
+/* ============================================================
+   CONTAINER PRINCIPAL
+============================================================ */
+
+.sobre {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 35px 20px 45px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+/* ============================================================
+   BLOCOS DA PÁGINA
+============================================================ */
+
+.sobre-bloco {
+    margin-bottom: 35px;
+}
+
+
+/* ============================================================
+   TÍTULOS
+============================================================ */
+
+.sobre-bloco h2,
+.sobre-bloco h3 {
+    color: #111;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+
+.sobre-bloco h2 {
+    font-size: 30px;
+}
+
+
+.sobre-bloco h3 {
+    font-size: 26px;
+}
+
+
+/* ============================================================
+   CAIXAS DE TEXTO
+============================================================ */
+
+.sobre-caixa {
+    background-color: #e7e0d8;
+    border-radius: 10px;
+    padding: 15px 20px;
+    max-width: 700px;
+    margin: 0 auto;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.10);
+
+    box-sizing: border-box;
+}
+
+
+.sobre-caixa p {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+
+/* ============================================================
+   NOSSA ESSÊNCIA
+============================================================ */
+
+.essencia-lista {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.essencia-item {
+    background-color: #e7e0d8;
+
+    color: #333;
+
+    padding: 12px 18px;
+
+    border-radius: 9px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.10);
+
+    font-size: 15px;
+
+    width: fit-content;
+    max-width: 90%;
+
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   HEADER DA PÁGINA SOBRE
+============================================================ */
+
+.sobre ~ .rodape {
+    margin-top: auto;
+}
+
+
+/* ============================================================
+   DESKTOP
+============================================================ */
+
+@media (min-width: 769px) {
+
+    .sobre {
+        min-height: 500px;
+        padding-top: 45px;
+    }
+
+    .sobre-bloco {
+        margin-bottom: 40px;
+    }
+
+}
+
+
+/* ============================================================
+   CELULAR
+============================================================ */
+
+@media (max-width: 768px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+
+    /* HEADER */
+
+    header.topo {
+        padding: 20px 10px;
+    }
+
+
+    .logo {
+        text-align: center;
+    }
+
+
+    .logo a {
+        font-size: 22px;
+    }
+
+
+    /* MENU VERTICAL */
+
+    nav.menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 8px;
+
+        margin-top: 12px;
+    }
+
+
+    nav.menu a {
+        font-size: 15px;
+    }
+
+
+    /* SOBRE */
+
+    .sobre {
+        padding:
+            25px
+            15px
+            35px;
+    }
+
+
+    .sobre-bloco {
+        margin-bottom: 30px;
+    }
+
+
+    /* TÍTULOS */
+
+    .sobre-bloco h2 {
+        font-size: 24px;
+        margin-bottom: 18px;
+    }
+
+
+    .sobre-bloco h3 {
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+
+    /* CAIXAS */
+
+    .sobre-caixa {
+        width: 100%;
+        padding: 13px 16px;
+    }
+
+
+    .sobre-caixa p {
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+
+    /* ESSÊNCIA */
+
+    .essencia-lista {
+        gap: 12px;
+    }
+
+
+    .essencia-item {
+        font-size: 14px;
+        padding: 11px 15px;
+        max-width: 95%;
+    }
+
+
+    /* FOOTER */
+
+    footer.rodape {
+        padding: 12px 8px;
+    }
+
+
+    footer.rodape p {
+        font-size: 12px;
+        margin: 5px 0;
+    }
+
+/* ============================================================
+   CELULARES PEQUENOS
+============================================================ */
+
+@media (max-width: 400px) {
+
+    .sobre {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+
+    .sobre-bloco h2 {
+        font-size: 23px;
+    }
+
+
+    .sobre-bloco h3 {
+        font-size: 21px;
+    }
+
+
+    .sobre-caixa p {
+        font-size: 13px;
+    }
+
+
+    .essencia-item {
+        font-size: 13px;
+    }
+
+}}
 

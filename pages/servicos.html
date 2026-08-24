@@ -24,12 +24,12 @@
 
 
     <!-- =====================================================
-         PROTEÇÃO DA PÁGINA
+         VERIFICAÇÃO DE LOGIN
     ====================================================== -->
 
     <script>
 
-        (async function protegerPagina() {
+        async function verificarLogin() {
 
             try {
 
@@ -48,6 +48,10 @@
 
                 if (!resposta.ok) {
 
+                    console.log(
+                        "❌ Usuário não autenticado."
+                    );
+
                     alert(
                         "Você precisa estar logado para acessar nossos serviços!"
                     );
@@ -56,7 +60,7 @@
                         "login.html"
                     );
 
-                    return;
+                    return false;
                 }
 
 
@@ -64,17 +68,46 @@
                    PEGAR DADOS DA SESSÃO
                 ================================================== */
 
-                const dados = await resposta.json();
+                const dados =
+                    await resposta.json();
 
 
                 console.log(
-                    "☕ Usuário autenticado:",
+                    "☕ Dados recebidos do servidor:",
+                    dados
+                );
+
+
+                console.log(
+                    "👤 Usuário:",
                     dados.usuario
                 );
 
 
                 /* =================================================
-                   DISPONIBILIZAR USUÁRIO GLOBALMENTE
+                   VERIFICAR SE O USUÁRIO EXISTE
+                ================================================== */
+
+                if (
+                    !dados.usuario ||
+                    !dados.usuario.nome
+                ) {
+
+                    console.error(
+                        "❌ O servidor não retornou o nome do usuário."
+                    );
+
+                    console.error(
+                        "Resposta recebida:",
+                        dados
+                    );
+
+                    return false;
+                }
+
+
+                /* =================================================
+                   SALVAR USUÁRIO GLOBALMENTE
                 ================================================== */
 
                 window.usuarioLogado =
@@ -82,17 +115,44 @@
 
 
                 /* =================================================
-                   MARCAR PÁGINA COMO AUTORIZADA
+                   MOSTRAR NOME DO USUÁRIO
                 ================================================== */
 
-                document.documentElement.dataset.autenticado =
-                    "true";
+                const usuarioElemento =
+                    document.getElementById(
+                        "usuarioLogado"
+                    );
+
+
+                if (usuarioElemento) {
+
+                    usuarioElemento.textContent =
+                        `☕ Olá, ${dados.usuario.nome}! Aproveite nossos serviços.`;
+
+                }
+
+
+                /* =================================================
+                   MOSTRAR CONTEÚDO
+                ================================================= */
+
+                document.body.style.display =
+                    "block";
+
+
+                console.log(
+                    "✅ Usuário autenticado:",
+                    dados.usuario.nome
+                );
+
+
+                return true;
 
 
             } catch (erro) {
 
                 console.error(
-                    "❌ Erro ao verificar sessão:",
+                    "❌ Erro ao verificar login:",
                     erro
                 );
 
@@ -106,9 +166,25 @@
                     "login.html"
                 );
 
+
+                return false;
             }
 
-        })();
+        }
+
+
+        /* =====================================================
+           EXECUTAR VERIFICAÇÃO QUANDO O HTML ESTIVER PRONTO
+        ====================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                verificarLogin();
+
+            }
+        );
 
     </script>
 
@@ -160,7 +236,7 @@
 
 
     <!-- =====================================================
-         CONTEÚDO PRINCIPAL
+         CONTEÚDO
     ====================================================== -->
 
     <main>
@@ -193,7 +269,9 @@
             <p
                 id="usuarioLogado"
                 class="texto-servicos"
-            ></p>
+            >
+                Carregando usuário...
+            </p>
 
 
             <!-- =================================================
@@ -218,15 +296,14 @@
             >
 
                 <!--
-                    Os cards serão inseridos
-                    dinamicamente pelo script.js
+                    Os cards são carregados pelo script.js
                 -->
 
             </div>
 
 
             <!-- =================================================
-                 MENSAGEM DE CARREGAMENTO
+                 CARREGAMENTO
             ================================================== -->
 
             <p
@@ -271,7 +348,7 @@
 
 
     <!-- =====================================================
-         SCRIPT EXTRA DA PÁGINA
+         CONTROLE DA PÁGINA
     ====================================================== -->
 
     <script>
@@ -280,12 +357,6 @@
             "DOMContentLoaded",
             function () {
 
-                const usuarioElemento =
-                    document.getElementById(
-                        "usuarioLogado"
-                    );
-
-
                 const mensagemCarregamento =
                     document.getElementById(
                         "mensagemCarregamento"
@@ -293,22 +364,7 @@
 
 
                 /* =============================================
-                   MOSTRAR USUÁRIO LOGADO
-                ============================================== */
-
-                if (
-                    usuarioElemento &&
-                    window.usuarioLogado
-                ) {
-
-                    usuarioElemento.textContent =
-                        `☕ Olá, ${window.usuarioLogado.nome}! Aproveite nossos serviços.`;
-
-                }
-
-
-                /* =============================================
-                   OCULTAR MENSAGEM DE CARREGAMENTO
+                   ESCONDER MENSAGEM DE CARREGAMENTO
                 ============================================== */
 
                 if (mensagemCarregamento) {
