@@ -2,79 +2,335 @@
 <html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Café Central - Nossos serviços e experiências em cafés especiais.">
-    
-    <link rel="stylesheet" href="../css/style.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Café Central - Nossos serviços e experiências em cafés especiais."
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
 
     <title>Café Central - Serviços</title>
+
+
+    <!-- =====================================================
+         PROTEÇÃO DA PÁGINA
+    ====================================================== -->
+
+    <script>
+
+        (async function protegerPagina() {
+
+            try {
+
+                const resposta = await fetch(
+                    "http://127.0.0.1:3000/me",
+                    {
+                        method: "GET",
+                        credentials: "include"
+                    }
+                );
+
+
+                /* =================================================
+                   USUÁRIO NÃO ESTÁ LOGADO
+                ================================================== */
+
+                if (!resposta.ok) {
+
+                    alert(
+                        "Você precisa estar logado para acessar nossos serviços!"
+                    );
+
+                    window.location.replace(
+                        "login.html"
+                    );
+
+                    return;
+                }
+
+
+                /* =================================================
+                   PEGAR DADOS DA SESSÃO
+                ================================================== */
+
+                const dados = await resposta.json();
+
+
+                console.log(
+                    "☕ Usuário autenticado:",
+                    dados.usuario
+                );
+
+
+                /* =================================================
+                   DISPONIBILIZAR USUÁRIO GLOBALMENTE
+                ================================================== */
+
+                window.usuarioLogado =
+                    dados.usuario;
+
+
+                /* =================================================
+                   MARCAR PÁGINA COMO AUTORIZADA
+                ================================================== */
+
+                document.documentElement.dataset.autenticado =
+                    "true";
+
+
+            } catch (erro) {
+
+                console.error(
+                    "❌ Erro ao verificar sessão:",
+                    erro
+                );
+
+
+                alert(
+                    "Não foi possível verificar seu login. Tente novamente."
+                );
+
+
+                window.location.replace(
+                    "login.html"
+                );
+
+            }
+
+        })();
+
+    </script>
+
 </head>
+
 
 <body>
 
-    <!-- PROTEÇÃO DE ACESSO (LOGIN) -->
-    <script>
-        fetch("http://localhost:3000/me", {
-            credentials: "include"
-        })
-        .then(resposta => {
-            if (!resposta.ok) {
-                alert("Você precisa estar logado para acessar nossos serviços!");
-                window.location.href = "login.html";
-            }
-        })
-    </script>
 
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-    <!-- HEADER -->
     <header class="topo">
 
         <div class="logo">
-            <a href="../index.html">Café<span>Central</span></a>
+
+            <a href="../index.html">
+                Café<span>Central</span>
+            </a>
+
         </div>
 
+
         <nav class="menu">
-            <a href="../index.html">Início</a>
-            <a href="sobre.html">Sobre</a>
-            <a href="servicos.html" class="ativo">Serviços</a>
-            <a href="contato.html">Contato</a>
+
+            <a href="../index.html">
+                Início
+            </a>
+
+            <a href="sobre.html">
+                Sobre
+            </a>
+
+            <a
+                href="servicos.html"
+                class="ativo"
+            >
+                Serviços
+            </a>
+
+            <a href="contato.html">
+                Contato
+            </a>
+
         </nav>
 
     </header>
 
 
-    <!-- CONTEÚDO -->
-    <section class="servicos">
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
 
-        <h1>Experiências e Serviços</h1>
+    <main>
 
-        <p class="texto-servicos">
-            Descubra nossos cafés especiais e experiências exclusivas preparadas com qualidade artesanal.
+        <section class="servicos">
+
+
+            <!-- =================================================
+                 TÍTULO
+            ================================================== -->
+
+            <h1>
+                Experiências e Serviços
+            </h1>
+
+
+            <p class="texto-servicos">
+
+                Descubra nossos cafés especiais e
+                experiências exclusivas preparadas
+                com qualidade artesanal.
+
+            </p>
+
+
+            <!-- =================================================
+                 USUÁRIO LOGADO
+            ================================================== -->
+
+            <p
+                id="usuarioLogado"
+                class="texto-servicos"
+            ></p>
+
+
+            <!-- =================================================
+                 BUSCA
+            ================================================== -->
+
+            <input
+                type="text"
+                id="BuscarServicos"
+                placeholder="Buscar cafés ou serviços..."
+                autocomplete="off"
+            >
+
+
+            <!-- =================================================
+                 LISTA DE SERVIÇOS
+            ================================================== -->
+
+            <div
+                id="ListaServicos"
+                class="servicos-grid"
+            >
+
+                <!--
+                    Os cards serão inseridos
+                    dinamicamente pelo script.js
+                -->
+
+            </div>
+
+
+            <!-- =================================================
+                 MENSAGEM DE CARREGAMENTO
+            ================================================== -->
+
+            <p
+                id="mensagemCarregamento"
+                class="mensagem-auth"
+            >
+                Carregando nossos cafés...
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="rodape">
+
+        <p>
+            © 2026 Café Central.
+            Todos os direitos reservados
         </p>
 
-        <!-- BUSCA -->
-        <input id="BuscarServicos" placeholder="Buscar cafés ou serviços..." />
+        <p>
 
+            <a href="contato.html">
+                Entre em contato
+            </a>
 
-        <!-- LISTA DINÂMICA -->
-        <div id="ListaServicos" class="servicos-grid">
+        </p>
 
-            <!-- JS vai inserir os cards aqui -->
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-    <footer class="rodape">
-        <p>© 2026 Café Central. Todos os direitos reservados</p>
-        <p><a href="contato.html">Entre em contato</a></p>
     </footer>
 
 
+    <!-- =====================================================
+         SCRIPT DOS SERVIÇOS
+    ====================================================== -->
+
     <script src="../js/script.js"></script>
 
+
+    <!-- =====================================================
+         SCRIPT EXTRA DA PÁGINA
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const usuarioElemento =
+                    document.getElementById(
+                        "usuarioLogado"
+                    );
+
+
+                const mensagemCarregamento =
+                    document.getElementById(
+                        "mensagemCarregamento"
+                    );
+
+
+                /* =============================================
+                   MOSTRAR USUÁRIO LOGADO
+                ============================================== */
+
+                if (
+                    usuarioElemento &&
+                    window.usuarioLogado
+                ) {
+
+                    usuarioElemento.textContent =
+                        `☕ Olá, ${window.usuarioLogado.nome}! Aproveite nossos serviços.`;
+
+                }
+
+
+                /* =============================================
+                   OCULTAR MENSAGEM DE CARREGAMENTO
+                ============================================== */
+
+                if (mensagemCarregamento) {
+
+                    setTimeout(
+                        function () {
+
+                            mensagemCarregamento.style.display =
+                                "none";
+
+                        },
+                        1000
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+
 </body>
+
 </html>
