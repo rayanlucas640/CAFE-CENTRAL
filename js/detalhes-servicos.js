@@ -1,67 +1,52 @@
-// Captura os elementos da página detalhes do curso
-const conteudoCurso = document.querySelector("#conteudoServicos")
-const mensagemCarregamento = document.querySelector("#mensagemCarregamento")
- 
-// Lê o identificador enviado na URL
-const parametros = new URLSearchParams(window.location.search());
-const idCurso = Number(parametros.get("id"));
- 
-// Função que carrega o curso
-async function CarregarDetalhesCardapio() {
-    try{
+const conteudoServicos = document.querySelector("#conteudoServicos");
+const mensagemCarregamento = document.querySelector("#mensagemCarregamento");
+
+const parametros = new URLSearchParams(window.location.search);
+const idServico = Number(parametros.get("id"));
+
+async function carregarDetalhesServico() {
+    try {
         const resposta = await fetch("../data/servicos.json");
- 
-        if(!resposta){
-            console.error("Não foi possível carregar o cardápio");
-            mensagemCarregamento.textContent =
-                "Não foi possível carregar os cardápio"
-        };
- 
-        const cursos = await resposta.json();
- 
-        const cursoEncontrado = cursos.find(
-            curso => curso.id === idCurso
-        );
- 
-        if(!cursoEncontrado){
-            mostrarCursosNãoEncontrado();
+
+        if (!resposta.ok) {
+            throw new Error("Não foi possível carregar os serviços.");
+        }
+
+        const servicos = await resposta.json();
+
+        const servico = servicos.find(servico => servico.id === idServico);
+
+        if (!servico) {
+            mostrarServicoNaoEncontrado();
             return;
-        };
- 
-        mostrarCurso(cursoEncontrado);
- 
-       
-    } catch(erro){
-        console.error("Erro ao carregar o cardápio ",erro);
-        mensagemCarregamento.textContent =
-            "Não foi possível carregar as informações do Cardápio";
+        }
+
+        mostrarServico(servico);
+    } catch (erro) {
+        console.error("Erro ao carregar serviço:", erro);
+        mensagemCarregamento.textContent = "Não foi possível carregar as informações do serviço.";
     }
 }
 
-
-function mostrarCurso(curso){
+function mostrarServico(servico) {
     mensagemCarregamento.textContent = "";
 
-    conteudoCurso.innerHTML = 
-    `<h3> ${servico.titulo} </h3>
-            <img src="${servico.img}" width="150" height="150">
-            <p> ${servico.descricao} </p>
-            <p> <strong>$: </strong> ${servico.preco}</p>
-
-            
+    conteudoServicos.innerHTML = `
+        <h1>${servico.titulo}</h1>
+        <img src="${servico.img}" width="300" height="300" alt="${servico.titulo}">
+        <p>${servico.descricao}</p>
+        <p><strong>Preço:</strong> R$ ${servico.preco.toFixed(2).replace(".", ",")}</p>
     `;
-};
-
-function mostrarCursosNãoEncontrado(){
-    mensagemCarregamento.textContent ="";
- 
-    conteudoCurso.innerHTML = `
-        <div class="detalhe-preco">
-            <h1> Curso não encontrado!</h1>
-            <p> O curso não existe ou não está disponível </p>
-        </div>
-    `
 }
- 
-// Iniciar carregamento
-CarregarDetalhesCurso();
+
+function mostrarServicoNaoEncontrado() {
+    mensagemCarregamento.textContent = "";
+
+    conteudoServicos.innerHTML = `
+        <h1>Serviço não encontrado!</h1>
+        <p>O produto ou serviço solicitado não existe ou não está disponível.</p>
+        <a href="servicos.html">Voltar para Serviços</a>
+    `;
+}
+
+carregarDetalhesServico();
