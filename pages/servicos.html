@@ -2,281 +2,97 @@
 <html lang="pt-br">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="Café Central - Nossos serviços e experiências em cafés especiais."
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/style.css"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Café Central - Nossos serviços e experiências em cafés especiais.">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Café Central - Serviços</title>
 
-
-    <!-- =====================================================
-         VERIFICAÇÃO DE LOGIN
-    ====================================================== -->
-
     <script>
-
         async function verificarLogin() {
-
             try {
-
-                const resposta = await fetch(
-                    "http://127.0.0.1:3000/me",
-                    {
-                        method: "GET",
-                        credentials: "include"
-                    }
-                );
-
-
-                /* =================================================
-                   USUÁRIO NÃO ESTÁ LOGADO
-                ================================================== */
+                const resposta = await fetch("http://127.0.0.1:3000/me", {
+                    method: "GET",
+                    credentials: "include"
+                });
 
                 if (!resposta.ok) {
-
-                    console.log(
-                        "❌ Usuário não autenticado."
-                    );
-
-                    alert(
-                        "Você precisa estar logado para acessar nossos serviços!"
-                    );
-
-                    window.location.replace(
-                        "login.html"
-                    );
-
+                    console.log("❌ Usuário não autenticado.");
+                    alert("Você precisa estar logado para acessar nossos serviços!");
+                    window.location.replace("login.html");
                     return false;
                 }
 
+                const dados = await resposta.json();
 
-                /* =================================================
-                   PEGAR DADOS DA SESSÃO
-                ================================================== */
+                console.log("☕ Dados recebidos do servidor:", dados);
+                console.log("👤 Usuário:", dados.usuario);
 
-                const dados =
-                    await resposta.json();
-
-
-                console.log(
-                    "☕ Dados recebidos do servidor:",
-                    dados
-                );
-
-
-                console.log(
-                    "👤 Usuário:",
-                    dados.usuario
-                );
-
-
-                /* =================================================
-                   VERIFICAR SE O USUÁRIO EXISTE
-                ================================================== */
-
-                if (
-                    !dados.usuario ||
-                    !dados.usuario.nome
-                ) {
-
-                    console.error(
-                        "❌ O servidor não retornou o nome do usuário."
-                    );
-
-                    console.error(
-                        "Resposta recebida:",
-                        dados
-                    );
-
+                if (!dados.usuario || !dados.usuario.nome) {
+                    console.error("❌ O servidor não retornou o nome do usuário.");
+                    console.error("Resposta recebida:", dados);
                     return false;
                 }
 
+                window.usuarioLogado = dados.usuario;
 
-                /* =================================================
-                   SALVAR USUÁRIO GLOBALMENTE
-                ================================================== */
-
-                window.usuarioLogado =
-                    dados.usuario;
-
-
-                /* =================================================
-                   MOSTRAR NOME DO USUÁRIO
-                ================================================== */
-
-                const usuarioElemento =
-                    document.getElementById(
-                        "usuarioLogado"
-                    );
-
+                const usuarioElemento = document.getElementById("usuarioLogado");
 
                 if (usuarioElemento) {
-
                     usuarioElemento.textContent =
                         `☕ Olá, ${dados.usuario.nome}! Aproveite nossos serviços.`;
-
                 }
 
+                
 
-                /* =================================================
-                   MOSTRAR CONTEÚDO
-                ================================================= */
-
-                document.body.style.display =
-                    "block";
-
-
-                console.log(
-                    "✅ Usuário autenticado:",
-                    dados.usuario.nome
-                );
-
+                console.log("✅ Usuário autenticado:", dados.usuario.nome);
 
                 return true;
 
-
             } catch (erro) {
+                console.error("❌ Erro ao verificar login:", erro);
 
-                console.error(
-                    "❌ Erro ao verificar login:",
-                    erro
-                );
+                alert("Não foi possível verificar seu login. Tente novamente.");
 
-
-                alert(
-                    "Não foi possível verificar seu login. Tente novamente."
-                );
-
-
-                window.location.replace(
-                    "login.html"
-                );
-
+                window.location.replace("login.html");
 
                 return false;
             }
-
         }
 
-
-        /* =====================================================
-           EXECUTAR VERIFICAÇÃO QUANDO O HTML ESTIVER PRONTO
-        ====================================================== */
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            function () {
-
-                verificarLogin();
-
-            }
-        );
-
+        document.addEventListener("DOMContentLoaded", function () {
+            verificarLogin();
+        });
     </script>
-
 </head>
-
 
 <body>
 
-
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
-
     <header class="topo">
-
         <div class="logo">
-
-            <a href="../index.html">
-                Café<span>Central</span>
-            </a>
-
+            <a href="../index.html">Café<span>Central</span></a>
         </div>
 
-
         <nav class="menu">
-
-            <a href="../index.html">
-                Início
-            </a>
-
-            <a href="sobre.html">
-                Sobre
-            </a>
-
-            <a
-                href="servicos.html"
-                class="ativo"
-            >
-                Serviços
-            </a>
-
-            <a href="contato.html">
-                Contato
-            </a>
-
+            <a href="../index.html">Início</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="servicos.html" class="ativo">Serviços</a>
+            <a href="contato.html">Contato</a>
         </nav>
-
     </header>
 
-
-    <!-- =====================================================
-         CONTEÚDO
-    ====================================================== -->
-
     <main>
-
         <section class="servicos">
-
-
-            <!-- =================================================
-                 TÍTULO
-            ================================================== -->
-
-            <h1>
-                Experiências e Serviços
-            </h1>
-
+            <h1>Experiências e Serviços</h1>
 
             <p class="texto-servicos">
-
-                Descubra nossos cafés especiais e
-                experiências exclusivas preparadas
-                com qualidade artesanal.
-
+                Descubra nossos cafés especiais e experiências exclusivas
+                preparadas com qualidade artesanal.
             </p>
 
-
-            <!-- =================================================
-                 USUÁRIO LOGADO
-            ================================================== -->
-
-            <p
-                id="usuarioLogado"
-                class="texto-servicos"
-            >
+            <p id="usuarioLogado" class="texto-servicos">
                 Carregando usuário...
             </p>
-
-
-            <!-- =================================================
-                 BUSCA
-            ================================================== -->
 
             <input
                 type="text"
@@ -285,108 +101,36 @@
                 autocomplete="off"
             >
 
+            <div id="ListaServicos" class="servicos-grid"></div>
 
-            <!-- =================================================
-                 LISTA DE SERVIÇOS
-            ================================================== -->
-
-            <div
-                id="ListaServicos"
-                class="servicos-grid"
-            >
-
-                <!--
-                    Os cards são carregados pelo script.js
-                -->
-
-            </div>
-
-
-            <!-- =================================================
-                 CARREGAMENTO
-            ================================================== -->
-
-            <p
-                id="mensagemCarregamento"
-                class="mensagem-auth"
-            >
+            <p id="mensagemCarregamento" class="mensagem-auth">
                 Carregando nossos cafés...
             </p>
-
         </section>
-
     </main>
 
-
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
     <footer class="rodape">
+        <p>© 2026 Café Central. Todos os direitos reservados</p>
 
         <p>
-            © 2026 Café Central.
-            Todos os direitos reservados
+            <a href="contato.html">Entre em contato</a>
         </p>
-
-        <p>
-
-            <a href="contato.html">
-                Entre em contato
-            </a>
-
-        </p>
-
     </footer>
-
-
-    <!-- =====================================================
-         SCRIPT DOS SERVIÇOS
-    ====================================================== -->
 
     <script src="../js/script.js"></script>
 
-
-    <!-- =====================================================
-         CONTROLE DA PÁGINA
-    ====================================================== -->
-
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const mensagemCarregamento =
+                document.getElementById("mensagemCarregamento");
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            function () {
-
-                const mensagemCarregamento =
-                    document.getElementById(
-                        "mensagemCarregamento"
-                    );
-
-
-                /* =============================================
-                   ESCONDER MENSAGEM DE CARREGAMENTO
-                ============================================== */
-
-                if (mensagemCarregamento) {
-
-                    setTimeout(
-                        function () {
-
-                            mensagemCarregamento.style.display =
-                                "none";
-
-                        },
-                        1000
-                    );
-
-                }
-
+            if (mensagemCarregamento) {
+                setTimeout(function () {
+                    mensagemCarregamento.style.display = "none";
+                }, 1000);
             }
-        );
-
+        });
     </script>
 
-
 </body>
-
 </html>
